@@ -14,7 +14,7 @@
 2023.07 ~ 2023.11(업데이트 2024.01)
 
 ### 블로그
-(Velog 블로그)[https://velog.io/@wuriae/series/%EC%9A%B0%EB%8B%B9%ED%83%95%ED%83%95-%EC%A2%8C%EC%B6%A9%EC%9A%B0%EB%8F%8C-%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B0%9C%EB%B0%9C%EA%B8%B0]
+[Velog 블로그](https://velog.io/@wuriae/series/%EC%9A%B0%EB%8B%B9%ED%83%95%ED%83%95-%EC%A2%8C%EC%B6%A9%EC%9A%B0%EB%8F%8C-%EC%9C%A0%EB%8B%88%ED%8B%B0-%EA%B0%9C%EB%B0%9C%EA%B8%B0)
 
 ## 활용 기술
 - 활용 기술
