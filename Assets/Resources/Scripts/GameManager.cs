@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private bool isMobile;
 
-	Player player;
+	public Player player;
+	public Vector3 playerPos;
 	Player2 player2;
 
 	[SerializeField] public GameObject[] KmsRunePrefabs;
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
+		playerPos = player.transform.position;
 		if (Input.GetKey(KeyCode.Z))
 		{
 			Skill();

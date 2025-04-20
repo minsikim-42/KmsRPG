@@ -39,20 +39,21 @@ public class DataManager : MonoBehaviour
 		string decData = Encrypt(toJsonData, 0x42);
 		string filePath = Application.persistentDataPath + "/" + GameDataFileName;
 
-		File.WriteAllText(filePath, decData);
 		print("저장했소\n" + filePath + "\n" + decData);
+		File.WriteAllText(filePath, decData);
 	}
 
 	public void LoadGameData()
 	{
 		string filePath = Application.persistentDataPath + "/" + GameDataFileName;
-
+		
+		print("filePath\n" + filePath);
 		if (File.Exists(filePath))
 		{
 			string fromJsonData = File.ReadAllText(filePath);
 			string encData = Decrypt(fromJsonData, 0x42);
-			data = JsonUtility.FromJson<GameData>(encData);
 			print("불러왔소\n" + filePath + "\n" + encData);
+			data = JsonUtility.FromJson<GameData>(encData);
 			data.isLoad = true;
 		}
 	}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 	[SerializeField]
 	private float spawnCool = 3f;
 	float t = 5f;
+	public List<Enemy> enemies;
 
 	[SerializeField]
 	Enemy enemy;
@@ -17,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		enemies = new List<Enemy>();
 	}
 
 	// Update is called once per frame
@@ -28,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 			t += Time.deltaTime;
 			if (t > spawnCool)
 			{
-				Instantiate(enemy, transform);
+				enemies.Add(Instantiate(enemy, transform));
 				t = 0f;
 			}
 		}

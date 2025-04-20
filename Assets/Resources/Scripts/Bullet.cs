@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Enemy")
 		{
-			other.GetComponent<Enemy>().attacked(gameObject, DMG);
+			// other.GetComponent<Enemy>().attacked(gameObject, DMG);
 		}
 	}
 }

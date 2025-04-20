@@ -262,6 +262,9 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   playerCamera: {fileID: 0}
   isDie: 0
+  isMobile: 0
+  player: {fileID: 0}
+  playerPos: {x: 0, y: 0, z: 0}
   KmsRunePrefabs:
   - {fileID: 2479209237369844688, guid: 80db2b5f1aaf34921957fe9146997e7d, type: 3}
   - {fileID: 7593432879420654824, guid: 87959bc26f7ff4dc590d3caec5b48e90, type: 3}
@@ -2174,7 +2177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0682106f4b1a24982a9aed9024476bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCool: 3
+  spawnCool: 0.01
+  enemies: []
   enemy: {fileID: 8360505644998978795, guid: 7ba982722cc0e446496c7b9615c9a98e, type: 3}
   boss: {fileID: 6466643339069120345, guid: 39791926609c24c75b10ed5312d7156c, type: 3}
 --- !u!1 &607884080
@@ -5590,7 +5594,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383151192}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -9370,9 +9374,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3048689708848653991, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4102618892168464939, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102618892168464939, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4102618892168464939, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
       propertyPath: m_IsActive
@@ -9389,6 +9401,10 @@ PrefabInstance:
     - target: {fileID: 4227228253606484877, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
       propertyPath: m_AngularDrag
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204003669670070088, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7641579099188658342, guid: 261dac82457db4551a5708d0b69b2366, type: 3}
       propertyPath: leftHitBox

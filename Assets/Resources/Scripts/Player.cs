@@ -28,8 +28,17 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	private float hittedCool = 0.4f; // 0.4
 	[SerializeField]
-	float I_Time = 0.2f; // 0.2f
+	private float I_Time = 0.2f; // 0.2f
+
+	private float deathTimer = 2f;
+	
 	bool isHitted = false;
+
+	private WaitForSeconds waitAttackDelay;
+	private WaitForSeconds waitAttackCool;
+	private WaitForSeconds waitHitted;
+	private WaitForSeconds waitItime;
+	private WaitForSeconds waitDeath;
 
 	private float t = 0f;
 
@@ -47,6 +56,12 @@ public class Player : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		waitAttackDelay = new WaitForSeconds(attackDelay);
+		waitAttackCool = new WaitForSeconds(attackCool);
+		waitHitted = new WaitForSeconds(hittedCool);
+		waitItime = new WaitForSeconds(I_Time);
+		waitDeath = new WaitForSeconds(deathTimer);
+		
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		leftHitBox.enabled = false;
 		rightHitBox.enabled = false;
@@ -67,7 +82,7 @@ public class Player : MonoBehaviour
 		if (GameManager.instance.isDie == false && GameManager.instance.isKeyButtonPressed == false)
 		{
 			t += Time.deltaTime;
-
+	
 			if (Input.GetKey(KeyCode.Space))
 			{
 				Attack();
@@ -176,12 +191,12 @@ public class Player : MonoBehaviour
 	public IEnumerator CoIsAttack()
 	{
 		animator.SetFloat("isAttack", 1f);
-		yield return new WaitForSeconds(attackDelay);
+		yield return waitAttackDelay;
 		if (animator.GetFloat("RL_") == -1f)
 			leftHitBox.enabled = true;
 		else
 			rightHitBox.enabled = true;
-		yield return new WaitForSeconds(attackCool);
+		yield return waitAttackCool;
 		leftHitBox.enabled = false;
 		rightHitBox.enabled = false;
 		animator.SetFloat("isAttack", 0f);
@@ -214,7 +229,7 @@ public class Player : MonoBehaviour
 
 				StartCoroutine("CoIsDead");
 			}
-			yield return new WaitForSeconds(hittedCool);
+			yield return waitHitted;
 			animator.SetFloat("isHitted", 0f);
 		}
 		if (GameManager.instance.checkIsDie() == true)
@@ -226,7 +241,7 @@ public class Player : MonoBehaviour
 	IEnumerator CoI_Time()
 	{
 		isHitted = true;
-		yield return new WaitForSeconds(I_Time);
+		yield return waitItime;
 		isHitted = false;
 	}
 
@@ -236,7 +251,7 @@ public class Player : MonoBehaviour
 		Vector2 down = new Vector2(0, -0.5f);
 		rb.MovePosition(rb.position + down);
 		// animator.StopPlayback();
-		yield return new WaitForSeconds(2f);
+		yield return waitDeath;
 		GameManager.instance.makeBackToMenuPanel();
 		animator.SetFloat("isDead", 1f);
 		animator.StartPlayback();
@@ -246,7 +261,7 @@ public class Player : MonoBehaviour
 	// 	damageText.rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(transform.position);
 	// 	// text.rectTransform.anchoredPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, transform.position);
 	// 	damageText.SetText(atk.ToString());
-	// 	yield return new WaitForSeconds(0.7f);
+	// 	yield return wait(0.7f);
 	// 	damageText.SetText("");
 	// }
 

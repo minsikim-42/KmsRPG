@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -23,46 +25,83 @@ public class Enemy : MonoBehaviour
 	[SerializeField]
 	GameObject hpBar;
 	SpriteRenderer renderer_;
+	public Rigidbody2D rb;
+	public Vector3 dir;
+	public float nextUpdateTime;
 
 	[SerializeField]
 	private GameObject damageText;
 
 	// Start is called before the first frame update
-	void Start()
+	void Awake()
 	{
+		player = GameManager.instance.player;
 		// hpBar = FindObjectOfType<GameObject>();
 		renderer_ = hpBar.GetComponent<SpriteRenderer>();
-		player = FindObjectOfType<Player>();
-		player2 = FindObjectOfType<Player2>();
-		item = Resources.Load<GameObject>("Prefabs/Item");
+		rb = GetComponent<Rigidbody2D>();
+		nextUpdateTime = Time.time;
+		// player = FindObjectOfType<Player>();
+		// player2 = FindObjectOfType<Player2>();
+		// item = Resources.Load<GameObject>("Prefabs/Item");
 		// canvas = gameObject.GetComponent<Canvas>();
 		// text = canvas.GetComponent<TextMeshProUGUI>();
-
-		if (item == null)
-		{
-			Debug.Log("item is null!!!");
-		}
+		//
+		// if (item == null)
+		// {
+		// 	Debug.Log("item is null!!!");
+		// }
 	}
-
+	
 	// Update is called once per frame
 	void FixedUpdate()
 	{
 		if (GameManager.instance.isDie == false)
 		{
-			HpBarRender();
+			// HpBarRender();
 			Moving();
 		}
 	}
 
+	// private void Update()
+	// {
+	// 	AABB(); // AABB
+	// }
+	//
+	//
+	// void AABB()
+	// {
+	// 	float sx = transform.position.x - 0.2f;
+	// 	float sy = transform.position.y - 0.2f;
+	// 	float ex = transform.position.x + 0.2f;
+	// 	float ey = transform.position.y + 0.2f;
+	// 	
+	// 	float psx = player.transform.position.x - 0.25f;
+	// 	float psy = player.transform.position.y - 0.5f;
+	// 	float pex = player.transform.position.x + 0.25f;
+	// 	float pey = player.transform.position.y + 0.5f;
+	//
+	// 	if (sx < pex && ex > psx && sy < pey && ey > psy)
+	// 	{
+	// 		player.attacked(gameObject);
+	// 	}
+	// }
+	
 	void Moving()
 	{
-		Vector3 dir;
-		if (player != null)
-			dir = player.transform.position - transform.position;
-		else
-			dir = player2.transform.position - transform.position;
-		dir = dir.normalized * moveSpeed * Time.fixedDeltaTime;
-		transform.position += dir;
+		if (Time.time < nextUpdateTime)
+		{
+			rb.MovePosition(rb.position + (Vector2)dir * (moveSpeed * Time.fixedDeltaTime));
+			return;
+		}
+		nextUpdateTime += 2f;
+		Vector2 target = GameManager.instance.playerPos;
+		dir = (player.transform.position - transform.position).normalized;
+		rb.MovePosition(rb.position + (Vector2)dir * (moveSpeed * Time.fixedDeltaTime));
+		// // if (player != null)
+		// // 	dir = player.transform.position - transform.position;
+		// // else
+		// // 	dir = player2.transform.position - transform.position;
+		// transform.position += dir * (moveSpeed * Time.fixedDeltaTime);
 	}
 	void HpBarRender()
 	{
@@ -87,15 +126,15 @@ public class Enemy : MonoBehaviour
 		if ((other.gameObject.tag == "AttackBox" || other.gameObject.tag == "AttackBox_left" || other.gameObject.tag == "Bullet") && isHitted == false)
 		{
 			StartCoroutine("CoI_Time");
-
+	
 			Hp -= DMG.getDMG();
-
+	
 			DamageText dmgText = Instantiate(damageText).GetComponent<DamageText>();
 			dmgText.transform.position = transform.position;
 			dmgText.damage = DMG.getDMG(); // 데미지 전달
 			if (DMG.getIsCri())
 				dmgText.setCri();
-
+	
 			if (Hp < 0f)
 			{
 				GameManager.instance.earnExp(giveExp);
@@ -103,7 +142,7 @@ public class Enemy : MonoBehaviour
 				{
 					Instantiate(item, transform.position + (Vector3.right / 4), Quaternion.identity);
 				}
-
+	
 				if (Random.Range(0f, 1f) < 0.1f) // 10% Rune
 				{
 					int idx = Random.Range(0, 4);
@@ -125,7 +164,7 @@ public class Enemy : MonoBehaviour
 			}
 		}
 	}
-
+	
 	private void OnTriggerStay2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Player")

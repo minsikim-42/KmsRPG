@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 813294161840448886}
   - component: {fileID: 5830417469905089233}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,11 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1875731900753988286}
   - component: {fileID: 2898901658624569478}
-  - component: {fileID: 4301229923069651900}
   - component: {fileID: 8360505644998978795}
+  - component: {fileID: 4301229923069651900}
   - component: {fileID: 4702908290391788685}
   - component: {fileID: 113477040977762746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 813294161840448886}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2898901658624569478
 SpriteRenderer:
@@ -173,6 +173,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8360505644998978795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8513237808275672371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d974181ce3099434c826059706ef5e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  player2: {fileID: 0}
+  hpBar: {fileID: 5364396215520181615}
+  rb: {fileID: 0}
+  dir: {x: 0, y: 0, z: 0}
+  nextUpdateTime: 0
+  damageText: {fileID: 4627778954567897549, guid: c39023f2de7fa4ae88362140736b0abf, type: 3}
 --- !u!61 &4301229923069651900
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -218,21 +237,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4000368, y: 0.4032491}
   m_EdgeRadius: 0
---- !u!114 &8360505644998978795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8513237808275672371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d974181ce3099434c826059706ef5e7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  hpBar: {fileID: 5364396215520181615}
-  damageText: {fileID: 4627778954567897549, guid: c39023f2de7fa4ae88362140736b0abf, type: 3}
 --- !u!50 &4702908290391788685
 Rigidbody2D:
   serializedVersion: 4
@@ -255,7 +259,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
